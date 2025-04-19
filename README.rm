@@ -85,3 +85,19 @@ Você mencionou que o comando docker push é utilizado para subir as imagens par
 Além disso, também vimos que as imagens são imutáveis, o que significa que, uma vez que uma imagem é criada, ela não pode ser alterada. Isso garante que múltiplos containers possam reutilizar a mesma imagem sem risco de modificações indesejadas.
 Outra parte importante que você pode considerar é a criação de imagens através de Dockerfiles, que permite automatizar o processo de construção de imagens personalizadas. O comando docker build é fundamental nesse processo, pois ele lê o Dockerfile e cria a imagem conforme as instruções especificadas.
 Continue estudando e praticando!
+
+
+## REVISAO
+docker ps
+docker ps -a
+
+remover todos os containers
+docker rm $(docker ps -aq)
+docker container rm $(docker ps -aq)
+
+
+## apagando tudo
+docker rmi $(docker ls -aq)
+docker rmi $(docker image ls -aq)
+docker rmi $(docker image ls -aq) --force
+docker container rm $(docker ps -aq)
