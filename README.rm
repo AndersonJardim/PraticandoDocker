@@ -23,8 +23,8 @@ http://localhost:8081
 
 
 # Build 1.1
-docker build –t danielartine/app-node:1.1 .
-docker run -d danielartine/app-node:1.1
+docker build –t andersonjardim/app-node:1.1 .
+docker run -d andersonjardim/app-node:1.1
 
 # Dockerfile
 
@@ -69,3 +69,19 @@ ENV será usando dentro do container
 
 
 
+
+
+
+
+## Push para o Hub do Docker
+docker login -u andersonjardim
+---****
+docker images
+docker tag 0a5f76dd285d andersonjardim/app-node:1.2
+docker push andersonjardim/app-node:1.2
+
+Anderson, parabéns pela dedicação aos estudos!
+Você mencionou que o comando docker push é utilizado para subir as imagens para o servidor e que, ao subir outra imagem, ele aproveita as camadas. Isso é uma observação importante sobre a eficiência do Docker, pois realmente as imagens são compostas por camadas, e o Docker utiliza um sistema de cache que permite que camadas comuns entre diferentes imagens sejam reutilizadas, economizando espaço e tempo.
+Além disso, também vimos que as imagens são imutáveis, o que significa que, uma vez que uma imagem é criada, ela não pode ser alterada. Isso garante que múltiplos containers possam reutilizar a mesma imagem sem risco de modificações indesejadas.
+Outra parte importante que você pode considerar é a criação de imagens através de Dockerfiles, que permite automatizar o processo de construção de imagens personalizadas. O comando docker build é fundamental nesse processo, pois ele lê o Dockerfile e cria a imagem conforme as instruções especificadas.
+Continue estudando e praticando!
