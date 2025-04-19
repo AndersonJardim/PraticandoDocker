@@ -1,0 +1,71 @@
+docker images
+docker ps
+docker stop $(docker container ls -q)
+docker run -p 8080:3000 -d danielartine/app-node:1.0
+docker run -p 8080:3000 -d danielartine/app-node:1.0
+docker run -d 8080:3000 danielartine/app-node:1.0
+http://localhost:8080
+
+# Dockerfile
+
+FROM node:14
+WORKDIR /app-node
+EXPOSE 3000
+COPY . .
+RUN npm install
+ENTRYPOINT npm start
+
+
+# Build 1.0
+docker build -t andersonjardim/app-node:1.0 .
+docker run -d -p 8081:3000 9d2de56785ca andersonjardim/app-node:1.0
+http://localhost:8081
+
+
+# Build 1.1
+docker build –t danielartine/app-node:1.1 .
+docker run -d danielartine/app-node:1.1
+
+# Dockerfile
+
+FROM node:14
+WORKDIR /app-node
+ARG PORT=6000
+EXPOSE $PORT
+COPY . .
+RUN npm install
+ENTRYPOINT npm start
+
+# Build 1.2
+docker build -t andersonjardim/app-node:1.2 .
+docker run -d andersonjardim/app-node:1.2
+docker run -p 9090:6000 -d andersonjardim/app-node:1.2
+
+
+
+# Dockerfile
+
+FROM node:14
+WORKDIR /app-node
+ARG PORT_BUILD=6000
+ENV PORT=$PORT_BUILD
+EXPOSE $PORT_BUILD
+COPY . .
+RUN npm install
+ENTRYPOINT npm start
+
+docker build –t danielartine/app-node:1.2 .
+docker run –p 9090:6000 –d danielartine/app-node:1.2
+http://localhost:9090
+
+# Build 1.2.2
+docker build -t andersonjardim/app-node:1.2 .
+docker run -d andersonjardim/app-node:1.2
+docker run -p 9090:6000 -d andersonjardim/app-node:1.2
+
+# Difenças de ARV e ENV
+ARV é usado em tempo de build.
+ENV será usando dentro do container
+
+
+
