@@ -191,3 +191,93 @@ Continue praticando e explorando as funcionalidades do Docker para aprimorar ain
 
 
 
+
+
+# Volumes
+
+Resumo:
+docker volume create meu-volume
+docker volume ls
+docker volume inspect meu-volume
+docker volume rm meu-volume
+
+
+
+Prática:
+docker volume create meu-volume
+docker volume ls
+docker run -it -v meu-volume:/app ubuntu bash
+
+cd ap
+touch um-arquivo-qualquer.txt
+
+docker run -it -v meu-volume:/app ubuntu bash
+cd /var/lib/docker/
+cd volumes
+cd meu-volume
+cd _data
+
+Gerenciamento do volume
+Se sairmos do modo de superusuário (com o comando exit) e executarmos um docker volume simplesmente, sem passar nada, ele vai mostrar no retorno os comandos possíveis para gerenciamento do volume:
+
+create -> para criar volumes;
+inspect -> para inspecioná-los;
+ls -> para listá-los;
+prune -> para remover os volumes que não estão sendo usados;
+rm -> para remover qualquer volume, sendo usado ou não.
+
+
+
+
+## Criando volume com --mount
+docker run -it --mount source=meu-volume,target=/app ubuntu bash
+docker run -it --mount source=meu-novo-volume,target=/app ubuntu bash
+
+
+
+
+Já aprendemos sobre a possibilidade de usar bind mounts e volumes 
+para persistir dados no ambiente Docker.
+Mas qual é a vantagem de usar volumes ao invés dos bind mounts?
+
+A aula fala sobre a persistência de dados no Docker, destacando a utilização de volumes 
+como a solução mais recomendada para ambientes produtivos.
+
+Os volumes são gerenciados pelo Docker, o que traz mais segurança e organização, 
+evitando que usuários façam alterações indesejadas diretamente no sistema de arquivos do host. 
+Além disso, os volumes permitem que os dados sejam persistidos mesmo que o container seja removido.
+
+
+Outra vantagem é que o Docker cuida da localização dos dados, armazenando-os em um diretório específico, 
+como "/var/lib/docker/volumes/", facilitando o gerenciamento.
+
+
+
+## Explique com suas próprias palavras os principais conceitos que você aprendeu nesta aula.
+Definiremos o funcionamento do container de maneira bem simples agora, porque não vamos utilizar a flag -v. Ele possui uma flag própria: a --tmpfs:
+
+docker run -it --tmpfs=/app ubuntu bash
+Copiar código
+Se executarmos esse comando, criamos um novo container.
+
+Vamos dar um ls para conferir seu conteúdo. Ele criou a pasta "app" mas, diferente das outras 
+vezes em que criamos essa pasta, agora ela está destacada em verde no retorno do ls, assim 
+como a pasta "tmp".
+
+Isso significa que a pasta "app" é temporária. Ela está sendo escrita na memória do nosso host. 
+Ou seja, no momento em que esse container parar de funcionar, os arquivos da pasta "app" serão perdidos.
+
+
+Anderson, parabéns pela dedicação aos estudos!
+
+Você fez uma boa explicação sobre o funcionamento do container utilizando a flag --tmpfs, 
+destacando que os dados armazenados nessa pasta são temporários e que serão perdidos 
+quando o container for encerrado. Além disso, você mencionou corretamente que a pasta "app" 
+é criada na memória do host, o que é uma característica importante do uso de tmpfs.
+
+Além disso, também aprendemos na aula que, quando containers são removidos, os dados são perdidos, 
+e que existem outras formas de persistir dados, como volumes e bind mounts. Os volumes, por exemplo, 
+são gerenciados pelo Docker e permitem que os dados sejam mantidos mesmo após a remoção do container. 
+
+Continue estudando e praticando!
+
