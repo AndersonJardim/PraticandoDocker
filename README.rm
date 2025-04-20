@@ -101,3 +101,21 @@ docker rmi $(docker ls -aq)
 docker rmi $(docker image ls -aq)
 docker rmi $(docker image ls -aq) --force
 docker container rm $(docker ps -aq)
+
+
+## Recomençando 2
+docker run -it ubuntu bash
+docker ps
+docker ps -s
+docker history ubuntu
+
+❯ docker history ubuntu
+IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT
+602eb6fb314b   11 days ago   /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
+<missing>      11 days ago   /bin/sh -c #(nop) ADD file:1d7c45546e94b90e9…   78.1MB
+<missing>      11 days ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B
+<missing>      11 days ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B
+<missing>      11 days ago   /bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH     0B
+<missing>      11 days ago   /bin/sh -c #(nop)  ARG RELEASE                  0B
+
+
