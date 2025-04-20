@@ -281,3 +281,71 @@ são gerenciados pelo Docker e permitem que os dados sejam mantidos mesmo após 
 
 Continue estudando e praticando!
 
+## Network
+docker network ls
+docker inspect
+
+docker run -it ubuntu bash
+
+
+## Network - TESTE 2
+docker rm $(docker container ps -aq)
+
+
+docker run -it ubuntu bash
+docker network ls
+docker network create --driver bridge minha-bridge
+docker run -it --name ubuntu1 --network minha-bridge ubuntu bash 
+docker run -d --name pong --network minha-bridge ubuntu bash 1d
+
+
+docker run -it --name ubuntu1 ubuntu bash
+docker network create --driver bridge minha-bridge
+docker run -it --name ubuntu1 --network minha-bridge ubuntu bash
+docker run -it --name ubuntu2 --network minha-bridge ubuntu bash
+docker run -it --name ubuntu3 --network minha-bridge ubuntu bash
+
+
+## 04 -- As redes none e host
+❯ docker network ls
+NETWORK ID     NAME                    DRIVER    SCOPE
+82d8b2286109   bridge                  bridge    local
+282b1905fd6e   host                    host      local
+13aff6f523d5   jornadamilhas-network   bridge    local
+ec91b3cd360c   minha-bridge            bridge    local
+9a22587bdd30   none                    null      local
+ UsuarioSSD@DESKTOP-D3  D:  _Documentos  CursosAlura  Curso_Docker  app-exemplo  master 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED         STATUS         PORTS     NAMES
+9f13dd132923   ubuntu    "bash"    4 minutes ago   Up 4 minutes             ubuntu1
+ UsuarioSSD@DESKTOP-D3  D:  _Documentos  CursosAlura  Curso_Docker  app-exemplo  master 
+❯ 
+
+docker run -d --network none ubuntu sleep 1d
+docker run -d --network host aluradocker/app-node:1.0
+docker inspect 9f13dd132923
+
+
+##  questao
+Anteriormente, vimos sobre as duas redes Host e None, cada uma com sua respectiva finalidade.
+Qual a diferença da utilização de cada uma dessas redes?
+
+Isso ocorre porque, ao utilizar o driver host, removemos quaisquer isolamentos que existiam entre 
+a interface de rede do contêiner e do host.
+
+Estamos utilizando a mesma rede, usamos a mesma interface do host que está hospedando esse contêiner. 
+Portanto, se houvesse alguma outra aplicação na porta 3000 com o host em execução, não conseguiríamos 
+utilizar o contêiner dessa maneira, pois haveria um conflito de portas, já que a interface seria a mesma.
+
+
+
+Você acertou em cheio!
+
+Anderson, sua resposta está correta, parabéns! Ao utilizar o driver host, realmente 
+removemos o isolamento entre a interface de rede do contêiner e do host, o que pode levar 
+a conflitos de portas se outra aplicação já estiver utilizando a mesma porta no host. 
+Essa é a principal diferença na utilização das redes host e none. Continue se dedicando aos estudos!
+
+
+
+
