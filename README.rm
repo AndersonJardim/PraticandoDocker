@@ -119,3 +119,75 @@ IMAGE          CREATED       CREATED BY                                      SIZ
 <missing>      11 days ago   /bin/sh -c #(nop)  ARG RELEASE                  0B
 
 
+## Volumes e Bind mounts1
+
+## Recomençando 3
+docker rm $(docker container ps -aq)
+--só apagaou o container, não apagou a imagem
+
+docker run -it -v ubuntu
+
+
+docker rm $(docker container ps -aq) --force
+docker run -it -v ubuntu
+mkdir volume-docker
+docker run -it -v /home/daniel/volume-docker:/app ubuntu bash
+cd app/
+touch arquivo-qualquer.txt
+docker run -it -v /home/daniel/volume-docker:/app ubuntu bash
+docker run -it --mount type=bind,source=/home/daniel/volume-docker,target=/app ubuntu bash
+
+
+## Como isso fica no Windows ?
+No Windows, o conceito de bind mounts no Docker funciona de maneira semelhante, 
+mas a sintaxe do caminho do diretório é um pouco diferente.
+
+Quando você estiver utilizando o Docker no Windows, os caminhos devem ser especificados 
+com a letra da unidade seguida de dois pontos e barras invertidas (backslashes). 
+Por exemplo, se você criar uma pasta chamada volume-docker na unidade C, 
+o caminho seria: C:\volume-docker
+
+C:\volume-docker
+docker run -it -v C:\volume-docker:/app ubuntu bash
+docker run -it --mount type=bind,source=C:\volume-docker,target=/app ubuntu bash
+
+
+##
+Podemos querer que os dados da nossa aplicação sejam persistentes, porque assim garantimos que 
+ela esteja distribuída e disponível se precisarmos consultá-la. Porém, se escrevermos os dados 
+nos containers, por padrão eles não ficarão armazenados nesta camada, criada para ser 
+descartável. Existem três possibilidades para contornar esta situação com o Docker.
+
+* Volumes.
+Alternativa correta! Com volumes, é possível escrever os dados em uma camada persistente.
+
+* Bind mounts.
+Alternativa correta! Com bind mounts, é possível escrever os dados em uma camada persistente baseado na estrutura de pastas do host.
+
+
+
+
+
+Entendemos que os bind mounts são capazes de persistir dados de containers através de um
+ vínculo criado com a estrutura de pastas do nosso host.
+Como criar um bind mount com a sintaxe correta?
+
+Os bind mounts permitem que você conecte um diretório do seu sistema operacional (host) a um diretório 
+dentro de um container Docker. Isso significa que qualquer dado gravado no diretório do container será 
+persistido no diretório do host.
+Para criar um bind mount, você utiliza a flag -v ou --mount ao executar o comando docker run. 
+A sintaxe básica com a flag -v é:
+
+docker run -it -v /caminho/do/host:/caminho/do/container imagem
+docker run -it --mount type=bind,source=/caminho/do/host,target=/caminho/do/container imagem
+
+
+Você acertou em cheio!
+
+Anderson, sua resposta está correta, parabéns! Você demonstrou um ótimo entendimento sobre bind mounts e 
+como criá-los utilizando as flags -v ou --mount no Docker. 
+Ao criar um bind mount, você garante que os dados persistam mesmo após a remoção do container, pois eles são armazenados no sistema de arquivos do host. 
+Continue praticando e explorando as funcionalidades do Docker para aprimorar ainda mais seus conhecimentos!
+
+
+
