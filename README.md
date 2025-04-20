@@ -499,5 +499,5 @@ docker run ubuntu:18.04
 docker history ubuntu:18.04
 docker volumes ls
 docker network ls
-docker-composere up -d
+docker-compose up -d
 ```
