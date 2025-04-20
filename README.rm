@@ -392,3 +392,69 @@ docker run -d --network minha-bridge --name meu-mongo mongo:4.4.6
 docker stop meu-mongo
 docker start meu-mongo
 
+# 6.02 - Utilização do Docker Compose
+Durante todo o curso, compreendemos a execução de containers através do comando docker run. 
+Além disso, entendemos também como comunicar containers em conjunto com a rede bridge padrão e 
+também criando nossa própria rede através dos comandos docker network.
+
+Qual situação ainda precisamos resolver e como o Docker Compose auxilia neste problema?
+
+Resposta:
+Teremos que subir vários containers manualmente. Sempre que quisermos parar um container, 
+teremos que usar o comando docker stop ou docker rm para remover um a um. 
+Para cada container será necessário executar um comando, além da pilha de execução com todos esses containers.
+
+Confirmação da resposta:
+Você acertou em cheio!
+
+Anderson, sua resposta está correta, parabéns! 
+O Docker Compose realmente auxilia a resolver o problema de ter que subir e gerenciar vários containers manualmente. 
+Ele permite definir e executar aplicações multi-container de forma coordenada, 
+evitando a necessidade de executar comandos individuais para cada container. 
+Com o Docker Compose, você pode definir todos os serviços da sua aplicação em um único arquivo e gerenciá-los como uma unidade.
+Continue se dedicando aos estudos e explorando as funcionalidades do Docker Compose, você está no caminho certo!
+
+
+
+# 6.03 - Definindo os serviços - touch docker-compose.yml
+
+--diretório opcional
+mkdir DesktopProject2
+mkdir ymls
+cd DesktopProject2/ymls
+touch docker-compose.yml
+code .
+
+docker stop meu-mongo
+docker start meu-mongo
+docker-compose-up
+
+--Para parar:
+docker-compose down
+
+--Para start, mas não travar o prompt:
+docker-compose up -d
+
+--Teste no browser:
+http://localhost:3000/seed
+
+# Arquivo: docker-compose.yml
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:4.4.6
+    container_name: meu-mongo
+    networks:
+      - compose-bridge
+  
+  alurabooks:
+    image: aluradocker/alura-books:1.0
+    container_name: alurabooks
+    networks:
+      - compose-bridge
+    ports:
+      - 3000:3000
+
+networks:
+  compose-bridge:
+    driver: bridge
