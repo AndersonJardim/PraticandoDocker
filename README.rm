@@ -347,5 +347,34 @@ a conflitos de portas se outra aplicação já estiver utilizando a mesma porta 
 Essa é a principal diferença na utilização das redes host e none. Continue se dedicando aos estudos!
 
 
+#Comunicação entre containers
+
+Teste com MongoDB 4.4.6
+
+docker pull mongo:4.4.6
+docker pull aluradocker/alura-book:1.0
+docker pull andersonjardim/app-node:1.2
+
+--se apagou a rede
+docker network create --driver bridge minha-bridge
+docker run -d --network minha-bridge --name meu-mongo mongo:4.4.6
+docker run -d --network minha-bridge --name alurabooks -p 3000:3000 aluradocker/alura-books:1.0
+
+
+docker stop meu-mongo
+docker start meu-mongo
+
+
+# Nessa aula aprendemos:
+O docker dispõe por padrão de três redes: bridge, host e none;
+A rede bridge é usada para comunicar containers em um mesmo host;
+Redes bridges criadas manualmente permitem comunicação via hostname;
+A rede host remove o isolamento de rede entre o container e o host;
+A rede none remove a interface de rede do container;
+Podemos criar redes com o comando docker network create.
+
+
+
+
 
 
