@@ -439,6 +439,7 @@ docker-compose up -d
 http://localhost:3000/seed
 
 # Arquivo: docker-compose.yml
+
 version: "3.9"
 services:
   mongodb:
@@ -458,3 +459,20 @@ services:
 networks:
   compose-bridge:
     driver: bridge
+
+
+## Nessa aula aprendemos:
+
+O Docker Compose é uma ferramenta de coordenação de containers;
+Como instalar o Docker Compose no Linux;
+Como iniciar containers em conjunto com o comando docker-compose up;
+Como criar um arquivo de composição e definir instruções de containers, redes e serviços.
+
+## RESUMO
+
+docker ps
+docker run ubuntu:18.04
+docker history ubuntu:18.04
+docker volumes ls
+docker network ls
+docker-composere up -d
